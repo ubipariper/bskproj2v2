@@ -1,0 +1,34 @@
+<% show_sprint_tasks(@sprint).each do |t| %>
+  <tr id=<%=t.id%>>
+    <td>
+      <%= t.id %>
+    </td>
+    <td>
+      <%= t.name %>
+    </td>
+    <td>
+      <%= t.description %>
+    </td>
+    <td>
+      <%= t.points %>
+    </td>
+    <td>
+      <%= t.priority %>
+    </td>
+    <td>
+      <%= render_state t.state %>
+    </td>
+    <td>
+      <%= t.user.name %>
+      <a data-toggle="modal" data-target="#ownerModal" onclick="$('#task_id').val(<%=t.id%>)">
+        <i class="fas fa-exchange-alt"></i>
+      </a>
+    </td>
+    <td>
+      <a data-toggle="modal" data-target="#taskModal" onclick="$('#task_id').val(<%=t.id%>)">
+        <i class="fas fa-arrows-alt-h"></i>
+      </a>
+    </td>
+  </tr>
+<% end %>
+

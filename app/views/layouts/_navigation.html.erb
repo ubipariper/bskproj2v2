@@ -1,26 +1,26 @@
 <%# navigation styled for Bootstrap 4.0 %>
 <div class="container">
-  <nav class="navbar navbar-dark bg-inverse">
+  <nav class="container rounded" style="background-color: #eceeef; padding:10px;">
     <div class="row">
-      <div class="col-sm">
-        <%= link_to "Main Page".html_safe, "/", :class => "btn btn-primary", :style => "width:100%" %>
+      <div class="col">
+        <%= link_to "Main Page".html_safe, "/", :class => "btn btn-dark", :style => "width:100%" %>
       </div>
-      <div class="col-sm">
-        <%= link_to "Backlog".html_safe, "back_log", :class => "btn btn-primary", :style => "width:100%" %>
+      <div class="col">
+        <%= link_to "Backlog".html_safe, "/back_log", :class => "btn btn-dark", :style => "width:100%" %>
       </div>
-      <div class="col-sm">
-        <%= link_to "Sprint".html_safe, "sprint", :class => "btn btn-primary", :style => "width:100%" %>
+      <div class="col">
+        <%= link_to "Sprint".html_safe, "/sprint", :class => "btn btn-dark", :style => "width:100%" %>
       </div>
-      <%if is_logged then%>
-        <div class="col-sm">
-          <%= link_to "Logout".html_safe, "logout", :class => "btn btn-primary", :style => "width:100%" %>
+      <%if logged_in? then%>
+        <div class="col">
+          <%= link_to "Logout".html_safe, logout_path, method: :delete, :class => "btn btn-danger", :style => "width:100%" %>
         </div>
       <%else %>
-        <div class="col-sm">
-          <%= link_to "Login".html_safe, "login", :class => "btn btn-primary", :style => "width:100%" %>
+        <div class="col">
+          <%= link_to "Login".html_safe, "/login", :class => "btn btn-warning", :style => "width:100%" %>
         </div>
-        <div class="col-sm">
-          <%= link_to "Register".html_safe, "signup", :class => "btn btn-primary", :style => "width:100%" %>
+        <div class="col">
+          <%= link_to "Register".html_safe, "/signup", :class => "btn btn-warning", :style => "width:100%" %>
         </div>
       <%end %>
     </div>

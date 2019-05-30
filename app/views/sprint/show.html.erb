@@ -1,8 +1,99 @@
 <div class="jumbotron">
-  <h1 class="display-2">Welcome</h1>
-  <p class="lead">
-    SPRINT
+  <h1 class="display-2">Sprint <%= show_sprint_name(@sprint) %></h1>
 
-    <%= show_first_role %>
-  </p>
+  <form>
+    <div class="row">
+      <label class="col" for="change_sprint">Choose sprint</label>
+      <select class="col custom-select" id="change_sprint" onchange="change_sprint_to(this.value)">
+        <option value="null">---</option>
+        <% show_sprints.each do |s| %>
+          <% if s.name != 'Backlog' %>
+            <option value="<%= s.id %>"><%= s.name %></option>
+          <% end %>
+        <%end %>
+      </select>
+    </div>
+  </form>
+
+  <script>
+    var task_id = 0;
+  </script>
+
+  <br/>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Points</th>
+      <th scope="col">Priority</th>
+      <th scope="col">State</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Move</th>
+    </tr>
+    </thead>
+    <tbody id="table_body">
+      <%= render file: 'shared/task_page' %>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="ownerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select new owner</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <%= form_tag("/set_owner", method: "get", action: set_owner_path) do %>
+        <div class="modal-body" id="modal-users">
+            <% show_users.each do |u| %>
+                <%= radio_button_tag 'owner', u.id %>
+                <%= u.name %>
+              <br />
+            <% end %>
+        </div>
+          <input id="task_id" style="visibility:hidden" name="task_id" />
+          <input id="sprint_id" style="visibility:hidden" name="sprint_id" value=<%=@sprint%> />
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="sprintModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select new owner</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <%= form_tag("/set_owner", method: "get", action: set_owner_path) do %>
+          <div class="modal-body" id="modal-users">
+            <% show_users.each do |u| %>
+              <%= radio_button_tag 'owner', u.id %>
+              <%= u.name %>
+              <br />
+            <% end %>
+          </div>
+          <input id="task_id" style="visibility:hidden" name="task_id" />
+          <input id="sprint_id" style="visibility:hidden" name="sprint_id" value=<%=@sprint%> />
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

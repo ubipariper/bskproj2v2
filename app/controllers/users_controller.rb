@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     parameters['role_id'] = 6
     @user = User.new(parameters)
     if @user.save
+      log_in @user
       flash[:success] = 'Your account was created successfully'
       redirect_to @user
     else

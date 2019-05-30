@@ -11,6 +11,12 @@ Rails.application.routes.draw do
 
   resources :users
 
-  get '/back_log' => 'back_log#show'
+  get '/back_log' => 'sprint#show_backlog'
   get '/sprint' => 'sprint#show'
+  get '/sprint/:id', to: 'sprint#show'
+  get '/set_owner', to: 'sprint#set_owner'
+  get '/set_task_sprint', to: 'sprint#set_task_sprint'
+
+  get '/update_progress' => 'sprint#update_progress'
+  get '/update_tasks_view/:sprint' => 'sprint#update_tasks_view'
 end
